@@ -1,4 +1,5 @@
 import 'package:craw_svdut/models/account.dart';
+import 'package:craw_svdut/write_txt.dart';
 import 'package:dio/dio.dart';
 
 abstract class CheckAccount {
@@ -31,6 +32,7 @@ abstract class CheckAccount {
     if (response.data
         .toString()
         .contains('<html><head><title>Object moved</title></head><body>')) {
+      WriteTXT.addAccountToFile(account);
       print('-----------------');
       print("******* Found ******");
       print(account.dob);
