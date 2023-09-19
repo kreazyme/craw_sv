@@ -30,12 +30,13 @@ abstract class CheckAccount {
             seconds: 10,
           ),
         ));
+    print(response.data);
     if (response.data
         .toString()
         .contains('<html><head><title>Object moved</title></head><body>')) {
       print('-----------------');
       print("******* Found ******");
-      print(account.dob);
+      print(password);
       print(account.mssv);
       print(account.name);
       print('-----------------');
@@ -43,7 +44,7 @@ abstract class CheckAccount {
     }
     print('-----------------');
     print("******* Wrong ******");
-    print(account.dob);
+    print(password);
     print(account.mssv);
     print(account.name);
     print('-----------------');
