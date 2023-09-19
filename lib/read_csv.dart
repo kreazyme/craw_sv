@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:craw_svdut/helpers/time_extension.dart';
 import 'package:craw_svdut/models/account.dart';
 import 'package:excel/excel.dart';
 
@@ -13,9 +14,10 @@ abstract class ReadCSV {
 
     for (var table in excel.tables.keys) {
       for (var row in excel.tables[table]?.rows ?? []) {
+        DateTime dob = DateTime.parse(row[1].value.toString());
         accounts.add(Account(
           name: row[0].value.toString(),
-          dob: row[1].value.toString().substring(0, 10),
+          dob: dob.toDOB,
         ));
       }
     }

