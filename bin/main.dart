@@ -6,7 +6,7 @@ import 'package:craw_svdut/read_csv.dart';
 void main(List<String> arguments) {
   print('Hello world: ${craw_svdut.calculate()}!');
   List<Account> accounts = ReadCSV.findMSSV(ReadCSV.readDOB());
-  // CheckAccount.checkAccount(accounts);
+  CheckAccount.checkAccount(accounts);
   print(accounts.length);
   // CheckAccount.checkAccount();
 }
