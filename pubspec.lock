@@ -385,6 +385,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "11.10.0"
+  vn_badwords_filter:
+    dependency: "direct main"
+    description:
+      name: vn_badwords_filter
+      sha256: "5035be36b60957a2c79e1725ac0cd2d41688b83cdcbc7b76d11a762d10dc6624"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   watcher:
     dependency: transitive
     description:
